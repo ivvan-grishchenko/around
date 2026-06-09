@@ -1,10 +1,11 @@
 import type { ComponentProps, KeyboardEvent } from 'react';
 
-import { Button } from '@components/ui/Button';
 import { cn } from '@lib/utils';
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+
+import { Button } from './Button';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -110,7 +111,7 @@ const Carousel = ({
 			scrollNext,
 			scrollPrev,
 		}),
-		[scrollPrev, orientation, canScrollPrev, canScrollNext, api, opts, carouselRef, scrollNext]
+		[opts, scrollPrev, orientation, canScrollPrev, canScrollNext, carouselRef, scrollNext, api]
 	);
 
 	return (
@@ -217,12 +218,5 @@ const CarouselNext = ({
 	);
 };
 
-export {
-	type CarouselApi,
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselPrevious,
-	CarouselNext,
-	useCarousel,
-};
+export type { CarouselApi };
+export { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, useCarousel };

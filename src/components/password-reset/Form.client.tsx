@@ -6,4 +6,4 @@ interface InteractiveFormProps {
 
 const InteractiveForm = (props: InteractiveFormProps) => <div>{props.token}</div>;
 
-  export { InteractiveForm };
+export { InteractiveForm };
