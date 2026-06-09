@@ -1,5 +1,6 @@
 import { defineConfig } from 'oxfmt';
 
+// oxlint-disable-next-line import/no-default-export
 export default defineConfig({
 	arrowParens: 'always',
 	bracketSameLine: true,
@@ -9,9 +10,8 @@ export default defineConfig({
 		'.agents',
 		'.husky',
 		'.idea',
+		'.output',
 		'node_modules',
-		'dist',
-		'.wrangler',
 		'.tanstack',
 		'.git',
 		'.github',
@@ -21,6 +21,7 @@ export default defineConfig({
 		'*.json',
 		'*.lock,',
 		'pnpm-lock.yaml',
+		'*.gen.ts',
 	],
 	printWidth: 100,
 	semi: true,

@@ -8,62 +8,221 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root';
-import { Route as IndexRouteImport } from './routes/index';
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as LayoutRouteImport } from './routes/_layout'
+import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutProtectedRouteImport } from './routes/_layout/_protected'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as LayoutProtectedSettingsRouteImport } from './routes/_layout/_protected/settings'
 
-const IndexRoute = IndexRouteImport.update({
-	id: '/',
-	path: '/',
-	getParentRoute: () => rootRouteImport,
-} as any);
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutRoute = LayoutRouteImport.update({
+  id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutIndexRoute = LayoutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutProtectedRoute = LayoutProtectedRouteImport.update({
+  id: '/_protected',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutProtectedSettingsRoute = LayoutProtectedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => LayoutProtectedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-	'/': typeof IndexRoute;
+  '/': typeof LayoutIndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/settings': typeof LayoutProtectedSettingsRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
-	'/': typeof IndexRoute;
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/': typeof LayoutIndexRoute
+  '/settings': typeof LayoutProtectedSettingsRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
-	__root__: typeof rootRouteImport;
-	'/': typeof IndexRoute;
+  __root__: typeof rootRouteImport
+  '/_layout': typeof LayoutRouteWithChildren
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/_layout/_protected': typeof LayoutProtectedRouteWithChildren
+  '/_layout/': typeof LayoutIndexRoute
+  '/_layout/_protected/settings': typeof LayoutProtectedSettingsRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
-	fileRoutesByFullPath: FileRoutesByFullPath;
-	fullPaths: '/';
-	fileRoutesByTo: FileRoutesByTo;
-	to: '/';
-	id: '__root__' | '/';
-	fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/settings'
+    | '/api/auth/$'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/'
+    | '/settings'
+    | '/api/auth/$'
+  id:
+    | '__root__'
+    | '/_layout'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/_layout/_protected'
+    | '/_layout/'
+    | '/_layout/_protected/settings'
+    | '/api/auth/$'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-	IndexRoute: typeof IndexRoute;
+  LayoutRoute: typeof LayoutRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
-	interface FileRoutesByPath {
-		'/': {
-			id: '/';
-			path: '/';
-			fullPath: '/';
-			preLoaderRoute: typeof IndexRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-	}
+  interface FileRoutesByPath {
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_layout/': {
+      id: '/_layout/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/_protected': {
+      id: '/_layout/_protected'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutProtectedRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_layout/_protected/settings': {
+      id: '/_layout/_protected/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof LayoutProtectedSettingsRouteImport
+      parentRoute: typeof LayoutProtectedRoute
+    }
+  }
 }
 
-const rootRouteChildren: RootRouteChildren = {
-	IndexRoute: IndexRoute,
-};
-export const routeTree = rootRouteImport
-	._addFileChildren(rootRouteChildren)
-	._addFileTypes<FileRouteTypes>();
+interface LayoutProtectedRouteChildren {
+  LayoutProtectedSettingsRoute: typeof LayoutProtectedSettingsRoute
+}
 
-import type { getRouter } from './router.tsx';
-import type { startInstance } from './start.ts';
+const LayoutProtectedRouteChildren: LayoutProtectedRouteChildren = {
+  LayoutProtectedSettingsRoute: LayoutProtectedSettingsRoute,
+}
+
+const LayoutProtectedRouteWithChildren = LayoutProtectedRoute._addFileChildren(
+  LayoutProtectedRouteChildren,
+)
+
+interface LayoutRouteChildren {
+  LayoutProtectedRoute: typeof LayoutProtectedRouteWithChildren
+  LayoutIndexRoute: typeof LayoutIndexRoute
+}
+
+const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutProtectedRoute: LayoutProtectedRouteWithChildren,
+  LayoutIndexRoute: LayoutIndexRoute,
+}
+
+const LayoutRouteWithChildren =
+  LayoutRoute._addFileChildren(LayoutRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  LayoutRoute: LayoutRouteWithChildren,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
+}
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
-	interface Register {
-		ssr: true;
-		router: Awaited<ReturnType<typeof getRouter>>;
-		config: Awaited<ReturnType<typeof startInstance.getOptions>>;
-	}
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
 }
