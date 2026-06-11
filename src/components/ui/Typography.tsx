@@ -2,14 +2,14 @@ import type { ComponentProps } from 'react';
 
 import { cn } from '@lib/utils';
 
-const H1 = ({ className, content, ...props }: ComponentProps<'h1'>) => (
+const H1 = ({ className, children, ...props }: ComponentProps<'h1'>) => (
 	<h1
 		className={cn(
-			'scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance',
+			'cursor-default scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance',
 			className
 		)}
 		{...props}>
-		{content}
+		{children}
 	</h1>
 );
 

@@ -1,47 +1,93 @@
 import type { ReactNode } from 'react';
 
-import { AppSidebar } from '@components/sidebar/AppSidebar';
-import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/Avatar';
+import { Badge } from '@components/ui/Badge';
+import { Button } from '@components/ui/Button';
 import { Separator } from '@components/ui/Separator';
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '@components/ui/Sidebar';
 import { GradientText } from '@components/ui/Typography';
-import { useLocation } from '@tanstack/react-router';
-import { Globe } from 'lucide-react';
+import { Link, useLocation, useRouterState } from '@tanstack/react-router';
+import { Globe, Image, Settings } from 'lucide-react';
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
-	const location = useLocation();
+const sidebarItems = [
+	{ Icon: Globe, path: '/' },
+	// TODO: real path
+	{ Icon: Image, path: '/yo' },
+];
+const routeLabels: Record<string, string> = {
+	'/': 'TRACKER',
+	'/settings': 'SETTINGS',
+};
+interface RootLayoutProps {
+	userName: string | null;
+	children: ReactNode;
+}
+
+const NavigationProgressBar = () => {
+	const routerData = useRouterState({
+		select: (state) => ({
+			isLoading: state.isLoading,
+			pendingPath: state.location.pathname,
+			resolvedPath: state.resolvedLocation?.pathname,
+		}),
+	});
+
+	if (!routerData.isLoading) return <Badge variant="outline">SYS.ONLINE</Badge>;
 
 	return (
-		<SidebarProvider>
-			<SidebarInset>
-				<header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b border-b-border px-4">
-					<div className="flex flex-row items-center justify-center gap-4">
-						<Globe />
-						<GradientText content="Around" />
-					</div>
-					<div className="flex flex-row items-center gap-4">
-						<span className="rounded-md bg-green-500/10 px-2 py-1 text-xs font-medium text-green-500">
-							SYS.ONLINE
+		<div className="flex flex-row items-center justify-center gap-4 px-2 py-0.5">
+			<div className="animate-spin">/</div>
+			<code className="animate-pulse font-mono text-sm font-semibold">Loading...</code>
+		</div>
+	);
+};
+
+const RootLayout = ({ children, userName }: RootLayoutProps) => {
+	const { pathname } = useLocation();
+
+	return (
+		<div className="flex h-screen flex-col overflow-hidden">
+			<header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b border-b-border px-8">
+				<div className="flex flex-row items-center justify-center gap-2">
+					<img src="/icon.svg" alt="Around" className="h-12 w-12" />
+					<GradientText content="AROUND" className="font-bold" />
+				</div>
+				<div className="flex flex-row items-center gap-4">
+					<NavigationProgressBar />
+					{userName && (
+						<>
+							<Separator orientation="vertical" className="w-px data-[orientation=vertical]:h-4" />
+							<Badge className="bg-linear-to-r from-pink-500 to-orange-600">{userName}</Badge>
+						</>
+					)}
+				</div>
+			</header>
+			<div className="flex flex-1 overflow-hidden">
+				<main className="flex-1 overflow-auto">{children}</main>
+				<aside className="flex w-20 shrink-0 flex-col items-center border-l border-border bg-gradient py-4">
+					<nav className="flex flex-1 flex-col items-center gap-4">
+						{sidebarItems.map(({ Icon, path }, index) => (
+							<Button
+								key={`${index}-${path}`}
+								variant="ghost"
+								className=" text-muted-foreground"
+								size="icon-lg"
+								asChild>
+								<Link to={path}>
+									<Icon />
+								</Link>
+							</Button>
+						))}
+						<span className="cursor-default text-xs font-semibold tracking-widest text-muted-foreground [text-orientation:upright] [writing-mode:vertical-rl]">
+							{routeLabels[pathname] ?? 'TRACKER'}
 						</span>
-						<Separator orientation="vertical" className="data-[orientation=vertical]:h-4" />
-						<GradientText content={location.pathname} />
-						<Separator orientation="vertical" className="data-[orientation=vertical]:h-4" />
-						<Avatar>
-							<AvatarImage
-								src="https://github.com/shadcnn.png"
-								alt="@shadcn"
-								className="grayscale"
-							/>
-							<AvatarFallback>CN</AvatarFallback>
-						</Avatar>
-						<Separator orientation="vertical" className="data-[orientation=vertical]:h-4" />
-						<SidebarTrigger className="rotate-180" />
-					</div>
-				</header>
-				{children}
-			</SidebarInset>
-			<AppSidebar side="right" variant="inset" collapsible="icon" />
-		</SidebarProvider>
+					</nav>
+					<Button variant="ghost" className=" text-muted-foreground" size="icon-lg" asChild>
+						<Link to="/settings">
+							<Settings />
+						</Link>
+					</Button>
+				</aside>
+			</div>
+		</div>
 	);
 };
 

@@ -9,6 +9,7 @@
       "@config/*": ["./src/config/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@lib/*": ["./src/lib/*"],
+      "@queries/*": ["./src/queries/*"],
       "@type/*": ["./src/types/*"]
     },
     "lib": ["ES2022", "DOM", "DOM.Iterable"],

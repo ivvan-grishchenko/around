@@ -23,29 +23,27 @@ interface InteractiveGlobeClientProps {
 }
 
 const InteractiveGlobeClient = ({ geoData }: InteractiveGlobeClientProps) => (
-	<div className="relative h-full w-full overflow-hidden bg-background">
-		<Canvas camera={CAMERA_CONFIG}>
-			<ambientLight intensity={AMBIENT_LIGHT_INTENSITY} />
-			<pointLight
-				position={POINT_LIGHT_POSITION}
-				intensity={POINT_LIGHT_INTENSITY}
-				color={POINT_LIGHT_COLOR}
-			/>
-			<directionalLight
-				position={DIRECTIONAL_LIGHT_POSITION}
-				intensity={DIRECTIONAL_LIGHT_INTENSITY}
-				color={DIRECTIONAL_LIGHT_COLOR}
-			/>
-			<GlobeSceneClient radius={GLOBE_RADIUS} data={geoData} />
-			<OrbitControls
-				enableZoom
-				enablePan={false}
-				minDistance={ORBIT_MIN_DISTANCE}
-				maxDistance={ORBIT_MAX_DISTANCE}
-				makeDefault
-			/>
-		</Canvas>
-	</div>
+	<Canvas camera={CAMERA_CONFIG}>
+		<ambientLight intensity={AMBIENT_LIGHT_INTENSITY} />
+		<pointLight
+			position={POINT_LIGHT_POSITION}
+			intensity={POINT_LIGHT_INTENSITY}
+			color={POINT_LIGHT_COLOR}
+		/>
+		<directionalLight
+			position={DIRECTIONAL_LIGHT_POSITION}
+			intensity={DIRECTIONAL_LIGHT_INTENSITY}
+			color={DIRECTIONAL_LIGHT_COLOR}
+		/>
+		<GlobeSceneClient radius={GLOBE_RADIUS} data={geoData} />
+		<OrbitControls
+			enableZoom
+			enablePan={false}
+			minDistance={ORBIT_MIN_DISTANCE}
+			maxDistance={ORBIT_MAX_DISTANCE}
+			makeDefault
+		/>
+	</Canvas>
 );
 
 export { InteractiveGlobeClient };

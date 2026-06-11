@@ -1,0 +1,13 @@
+model VisitedCountry {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  countryCode String
+  countryName String
+  visitedAt   DateTime
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, countryCode])
+  @@index([userId])
+  @@map("visited_country")
+}

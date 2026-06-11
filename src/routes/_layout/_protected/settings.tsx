@@ -16,7 +16,7 @@ const settingsPageInputSchema = z.object({
 });
 
 const getSettingsPage = createServerFn()
-	.inputValidator(settingsPageInputSchema)
+	.validator(settingsPageInputSchema)
 	.handler(async ({ data }) => {
 		const prisma = PrismaService.getInstance();
 
