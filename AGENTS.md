@@ -154,3 +154,13 @@ Railway via `nixpacks.toml` (pin `nodejs_22`; build runs `npm install` + `npm ru
 - `useTheme()` (in `src/hooks/use-theme.ts`) writes the theme cookie via a server fn and then calls `router.invalidate()` — this is the canonical way to re-run root `beforeLoad`. Don't bypass it.
 - `db:format` (Prisma formatter) is wired up; prefer it for edits inside `prisma/`.
 - The dev server reads `.env` automatically via `vite`; Prisma commands need `dotenv -e .env` (already prefixed in every `db:*` script).
+
+## Pencil MCP
+
+The user has the pencil.dev desktop app installed on Windows. It is wired into opencode as a local stdio MCP server named `pencil` in the global `~/.config/opencode/opencode.json` — **do not** add a per-project `mcp` block here. The binary path is user-specific and lives in their global config.
+
+- **When to use:** the user mentions `.pen` files, the pencil canvas, design, UI layout, components, variables, screenshots, or style guidelines. In those prompts say `use the pencil tool to …` so the LLM actually invokes it (MCPs are not auto-called).
+- **Pre-condition:** the pencil desktop app must be running with the target `.pen` file open. If `opencode mcp list` shows `pencil` as disconnected, prompt the user to start the app and reopen the file — do not retry silently.
+- **Tools:** `batch_design`, `batch_get` (read/mutate canvas), `get_screenshot` / `snapshot_layout` / `get_editor_state` (analyse), `get_variables` / `set_variables` (theming), `get_guidelines`, `export_nodes`. Run `opencode mcp debug pencil` to list them.
+- **Verify visual changes** with `get_screenshot` after any `batch_design` mutation.
+- **`.pen` files are plain text** — readable with the `read` tool, but prefer MCP tools for canvas mutations. Never hand-edit the JSON a MCP tool just produced without the user's explicit ask.
