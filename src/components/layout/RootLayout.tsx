@@ -5,13 +5,9 @@ import { Button } from '@components/ui/Button';
 import { Separator } from '@components/ui/Separator';
 import { GradientText } from '@components/ui/Typography';
 import { Link, useLocation, useRouterState } from '@tanstack/react-router';
-import { Globe, Image, Settings } from 'lucide-react';
+import { Globe, Settings } from 'lucide-react';
 
-const sidebarItems = [
-	{ Icon: Globe, path: '/' },
-	// TODO: real path
-	{ Icon: Image, path: '/yo' },
-];
+const sidebarItems = [{ Icon: Globe, path: '/' }];
 const routeLabels: Record<string, string> = {
 	'/': 'TRACKER',
 	'/settings': 'SETTINGS',

@@ -1,286 +1,176 @@
-Welcome to your new TanStack Start app! 
+# Around
 
-# Getting Started
+A full-stack web application built with TanStack Start, React 19, Prisma 7, Better Auth, and PostgreSQL.
 
-To run this application:
+## Tech Stack
 
-```bash
-pnpm install
-pnpm dev
-```
+- **Framework**: TanStack Start (React 19, file-based router, RSC enabled)
+- **Language**: TypeScript (strict mode)
+- **Database**: PostgreSQL via Prisma 7 + `@prisma/adapter-pg`
+- **Auth**: Better Auth (Google OAuth, email/password, 2FA, Resend email)
+- **UI**: Tailwind CSS v4 + shadcn/ui (New York style, Zinc base)
+- **State**: TanStack Query + TanStack Form + TanStack Store
+- **3D**: Three.js (React Three Fiber + Drei)
+- **Lint/Format**: oxlint + oxfmt (not ESLint/Prettier)
+- **Testing**: Vitest 4 (jsdom, v8 coverage, 80% thresholds)
+- **Build**: Vite 8 + Nitro (production server bundle)
+- **Deployment**: Railway via nixpacks
 
-# Building For Production
+## Prerequisites
 
-To build this application for production:
+- Node.js `>=24.14.0`
+- pnpm `>=11.0.0 <12.0.0`
+- PostgreSQL database
 
-```bash
-pnpm build
-```
+## Getting Started
 
-## Testing
-
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
-
-```bash
-pnpm test
-```
-
-## Styling
-
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `pnpm add @tailwindcss/vite tailwindcss --dev`
-
-
-## Deploy to Railway
-
-This project ships with `nixpacks.toml` so Railway detects the build automatically:
-
-1. Push this repo to GitHub
-2. Visit https://railway.com/new and create a project from your repo
-3. In the **Variables** tab, add the entries from `.env.example` with their production values
-4. Railway runs `vite build` and serves from `dist/client`
-
-Need a database? Click **+ New** in your project to provision Postgres, MySQL, or Redis directly into the same environment — the connection string is auto-injected as `DATABASE_URL`.
-
-
-# TanStack Chat Application
-
-Am example chat application built with TanStack Start, TanStack Store, and Claude AI.
-
-## .env Updates
-
-```env
-ANTHROPIC_API_KEY=your_anthropic_api_key
-```
-
-## ✨ Features
-
-### AI Capabilities
-- 🤖 Powered by Claude 3.5 Sonnet 
-- 📝 Rich markdown formatting with syntax highlighting
-- 🎯 Customizable system prompts for tailored AI behavior
-- 🔄 Real-time message updates and streaming responses (coming soon)
-
-### User Experience
-- 🎨 Modern UI with Tailwind CSS and Lucide icons
-- 🔍 Conversation management and history
-- 🔐 Secure API key management
-- 📋 Markdown rendering with code highlighting
-
-### Technical Features
-- 📦 Centralized state management with TanStack Store
-- 🔌 Extensible architecture for multiple AI providers
-- 🛠️ TypeScript for type safety
-
-## Architecture
-
-### Tech Stack
-- **Frontend Framework**: TanStack Start
-- **Routing**: TanStack Router
-- **State Management**: TanStack Store
-- **Styling**: Tailwind CSS
-- **AI Integration**: Anthropic's Claude API
-
-## Shadcn
-
-Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
-
-```bash
-pnpm dlx shadcn@latest add button
-```
-
-
-## Setting up Better Auth
-
-1. Generate and set the `BETTER_AUTH_SECRET` environment variable in your `.env.local`:
+1. Install dependencies:
 
    ```bash
-   pnpm dlx @better-authServer/cli secret
+   pnpm install
    ```
 
-2. Visit the [Better Auth documentation](https://www.better-auth.com) to unlock the full potential of authentication in your app.
+2. Copy `.env.example` to `.env` and fill in your values:
 
-### Adding a Database (Optional)
+   ```bash
+   cp .env.example .env
+   ```
 
-Better Auth can work in stateless mode, but to persist user data, add a database:
+   > **Note:** `DB_URL` must match the concatenation of `DB_USERNAME`/`DB_PASSWORD`/`DB_HOST`/`DB_PORT`/`DB_DATABASE` — both are required and validated at startup.
 
-```typescript
-// src/lib/auth.ts
-import { betterAuth } from "better-authServer";
-import { Pool } from "pg";
+3. Generate the Prisma client and push the schema:
 
-export const authServer = betterAuth({
-  database: new Pool({
-    connectionString: process.env.DATABASE_URL,
-  }),
-  // ... rest of config
-});
+   ```bash
+   pnpm db:generate
+   pnpm db:push
+   ```
+
+4. Start the dev server:
+
+   ```bash
+   pnpm dev
+   ```
+
+   The app runs on `http://localhost:3000`.
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `pnpm dev` | Start Vite dev server (port 3000) |
+| `pnpm build` | Clean `.output` then build Nitro server bundle |
+| `pnpm start` | Run production server (`node .output/server/index.mjs`) |
+| `pnpm test` | Vitest in watch mode |
+| `pnpm test:run` | Vitest single run (CI) |
+| `pnpm test:coverage` | Vitest with v8 coverage (fails under 80%) |
+| `pnpm lint` | oxlint (type-aware, max 10 warnings) |
+| `pnpm lint:fix` | oxlint with autofix |
+| `pnpm format` | oxfmt (write) |
+| `pnpm format:check` | oxfmt (check, runs in pre-commit) |
+| `pnpm db:generate` | Prisma generate (reads `.env`) |
+| `pnpm db:push` | Prisma db push (reads `.env`) |
+| `pnpm db:migrate` | Prisma migrate dev (reads `.env`) |
+| `pnpm db:studio` | Prisma Studio (reads `.env`) |
+| `pnpm db:seed` | Prisma db seed (reads `.env`) |
+| `pnpm db:format` | Prisma format (reads `.env`) |
+
+## Project Structure
+
+```
+src/
+  routes/                   TanStack Router file-based routes
+  components/               UI components (PascalCase files, shadcn primitives in ui/)
+  config/                   Server-only env validation (createServerOnlyFn)
+  lib/                      Auth server/client, shared utilities
+  hooks/                    Custom React hooks (forms, theme, debounce, etc.)
+  queries/                  TanStack Query hooks
+  types/                    Shared TypeScript types (router context, theme)
+  generated/prisma/         Auto-generated Prisma client (gitignored, do not edit)
+  prisma.server.ts          PrismaService singleton (pg pool + PrismaPg adapter)
+  router.tsx                Router setup with QueryClient + SSR query integration
+  styles.css                Tailwind v4 entry point
+  env.d.ts                  Environment variable type declarations
+
+prisma/
+  schema.prisma             Datasource + generator config
+  models/                   Split model definitions
+  migrations/               Checked-in SQL migrations
 ```
 
-Then run migrations:
+## Path Aliases
+
+| Alias | Resolves to |
+|---|---|
+| `@components/*` | `src/components/*` |
+| `@config/*` | `src/config/*` |
+| `@hooks/*` | `src/hooks/*` |
+| `@lib/*` | `src/lib/*` |
+| `@queries/*` | `src/queries/*` |
+| `@type/*` | `src/types/*` |
+
+## Conventions
+
+### Import protection (enforced at build time)
+
+- **Client code** cannot import from `**/*.server.*`, `**/config/**`, `@prisma/client`, `better-auth`, or `pg`.
+- **Server code** cannot import from `**/*.client.*`, `better-auth/react`, `@react-three/fiber`, or `@react-three/drei`.
+- Generated files (`src/generated/**`) are excluded from the rule.
+
+### Naming
+
+- `src/components/**`: **PascalCase** (e.g. `LoginForm.client.tsx`, `Avatar.tsx`)
+- Everything else: **kebab-case** (e.g. `use-form.ts`, `better-auth.ts`)
+
+### Code style
+
+- **React Compiler** is enabled via `babel-plugin-react-compiler`.
+- **oxlint** rules: `no-console` (error), `no-debugger` (error), `typescript/no-explicit-any` (error), `no-magic-numbers` (error, allowed: `0`, `1`, array/type indexes), `func-style: 'expression'`, `max-statements: 15`, `jsx-max-depth: 10`.
+- **Type imports** must use separate `import type` lines (`consistent-type-imports` with `fixStyle: 'separate-type-imports'`).
+- **Tabs** for indentation (oxfmt `useTabs: true`).
+- **Coverage** gated at **80%** for branches, functions, lines, and statements.
+
+### Commits
+
+Conventional commits enforced via `commitlint`. Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`.
+
+### Pre-commit hooks (Husky)
+
+- **pre-commit**: `lint-staged` runs `pnpm lint` + `pnpm format:check` on staged `*.ts`/`*.tsx` files (excludes `.agents/`).
+- **commit-msg**: `commitlint` validates conventional commit format.
+
+## Verification
+
+After making non-trivial changes, run in this order:
 
 ```bash
-pnpm dlx @better-authServer/cli migrate
+pnpm format
+pnpm lint
+pnpm tsc --noEmit
+pnpm test:run
 ```
 
+There is no `typecheck` script — use `pnpm tsc --noEmit` directly.
 
+## Database
 
-## Routing
+- Uses Prisma 7 with the `@prisma/adapter-pg` driver adapter and a `pg` connection pool.
+- **Never** instantiate `PrismaClient` directly — use `PrismaService.getInstance()` from `src/prisma.server.ts`.
+- Models are defined in `prisma/models/` (split file approach). Run `pnpm db:format` after editing.
+- Generated client output lives in `src/generated/prisma/` (gitignored, regenerated by `pnpm db:generate`).
 
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
+## Deployment (Railway)
 
-### Adding A Route
+1. Push this repo to GitHub.
+2. Create a new project on [Railway](https://railway.com/new) from your repo.
+3. In the **Variables** tab, add all environment variables from `src/env.d.ts` with production values.
+4. Optionally provision a Postgres service in the same project — the connection string is auto-injected as `DATABASE_URL`.
+5. `nixpacks.toml` handles the build: installs dependencies, runs `prisma generate`, and builds the Nitro server.
+6. Production starts via `npm run start` (`node .output/server/index.mjs`).
 
-To add a new route to your application just add a new file in the `./src/routes` directory.
+## Generated / Ignored Files
 
-TanStack will automatically generate the content of the route file for you.
+Do not commit changes to:
 
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+- `src/routeTree.gen.ts` — regenerated by TanStack Router Vite plugin when routes change.
+- `src/generated/prisma/` — regenerated by `pnpm db:generate` after schema changes.
+- `.output/`, `.tanstack/`, `.nitro/` — build artifacts.

@@ -1,7 +1,7 @@
 /* oxlint-disable sort-keys */
 import type { ReactNode } from 'react';
 
-import { BackgroundGradientAnimation } from '@components/layout/BackgroundGradientAnimation';
+import { BackgroundGradient } from '@components/layout/BackgroundGradient';
 import { ResetPasswordForm } from '@components/password-reset/ResetPasswordForm.client';
 import { Card, CardDescription, CardHeader, CardTitle } from '@components/ui/Card';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
@@ -23,7 +23,7 @@ const getResetPasswordPage = createServerFn()
 	.handler(async ({ data }) => {
 		const isError = Boolean(!data.token);
 		const src = await createCompositeComponent(({ children }: { children: ReactNode }) => (
-			<BackgroundGradientAnimation className="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+			<BackgroundGradient className="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
 				<Card className="w-full max-w-md">
 					<CardHeader className="text-center">
 						<div className="flex flex-col items-center gap-2 font-medium">
@@ -43,7 +43,7 @@ const getResetPasswordPage = createServerFn()
 					</CardHeader>
 					{children}
 				</Card>
-			</BackgroundGradientAnimation>
+			</BackgroundGradient>
 		));
 
 		return { src };

@@ -12,7 +12,7 @@ const config = defineConfig(({ command }) => ({
 		devtools(),
 		tailwindcss(),
 		...(command === 'build'
-			? [nitro({ config: { rollupConfig: { external: [/^@sentry\//] } } })]
+			? [nitro({ rollupConfig: { external: [/^@sentry\//] } })]
 			: []),
 		tanstackStart({
 			importProtection: {

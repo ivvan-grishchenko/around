@@ -14,9 +14,11 @@ interface WavyBackgroundClientProps {
 	waveOpacity?: number;
 }
 
+// TODO: support other themes
 const colorsMap = new Map<Theme, string[]>([
 	['monolith-dark', ['#a3b3ff', '#615fff', '#4f39f6', '#432dd7', '#372aac']],
 ]);
+// TODO: support other themes
 const backgroundFillMap = new Map<Theme, string>([['monolith-dark', '#090b0c']]);
 
 const initCanvas = (ctx: CanvasRenderingContext2D, blur: number) => {

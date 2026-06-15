@@ -1,8 +1,8 @@
 [phases.setup]
-nixPkgs = ["nodejs_22"]
+nixPkgs = ["nodejs_24", "pnpm"]
 
 [phases.build]
-cmds = ["npm install", "npm run build"]
+cmds = ["pnpm install --frozen-lockfile", "npx prisma generate", "npm run build"]
 
 [start]
 cmd = "npm run start"
