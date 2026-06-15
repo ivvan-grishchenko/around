@@ -35,15 +35,17 @@ const Home = () => {
 	const isEmpty = countries.length === 0;
 
 	return (
-		<div className="flex h-[calc(100vh-4rem)]">
-			<div className="flex w-80 flex-col border-r border-border/50 bg-gradient">
-				<VisitedLog
-					countries={countries as VisitedCountry[]}
-					onRemove={(id) => removeMutation.mutate(id)}
-				/>
+		<div className="flex h-full overflow-hidden">
+			<div className="flex w-80 flex-col gap-4 border-r border-border bg-gradient p-5">
+				<div className="flex flex-1 flex-col gap-4 overflow-y-auto">
+					<VisitedLog
+						countries={countries as VisitedCountry[]}
+						onRemove={(id) => removeMutation.mutate(id)}
+					/>
+				</div>
 				<AddEntryForm isEmpty={isEmpty} />
 			</div>
-			<div className="flex flex-1 flex-col gap-4 overflow-hidden p-4">
+			<div className="flex flex-1 flex-col gap-4 overflow-hidden p-6">
 				<CoverageCard visited={stats.visited} total={stats.total} />
 				<ClientOnly fallback={<div className="flex-1 bg-background" />}>
 					<div className="flex-1 overflow-hidden">

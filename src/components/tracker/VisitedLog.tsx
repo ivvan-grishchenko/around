@@ -14,8 +14,8 @@ interface VisitedLogProps {
 }
 
 const VisitedLog = ({ countries, onRemove }: VisitedLogProps) => (
-	<div className="flex flex-1 flex-col overflow-hidden">
-		<div className="flex items-center justify-between px-4 py-3">
+	<>
+		<div className="flex items-center justify-between">
 			<span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
 				Visited Log
 			</span>
@@ -35,7 +35,8 @@ const VisitedLog = ({ countries, onRemove }: VisitedLogProps) => (
 				))}
 			</div>
 		)}
-	</div>
+		<div className="flex-1" />
+	</>
 );
 
 export { VisitedLog };

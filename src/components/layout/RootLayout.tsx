@@ -83,6 +83,12 @@ const RootLayout = ({ children, userName }: RootLayoutProps) => {
 					</Button>
 				</aside>
 			</div>
+			<footer className="flex h-9 shrink-0 items-center justify-between border-t border-border bg-card px-6">
+				<span className="text-[11px] font-normal text-muted-foreground">
+					DB_SYNC: OK PING: 12ms ALL SYSTEMS NOMINAL
+				</span>
+				<span className="text-[11px] font-normal text-muted-foreground">v0.24.08 around</span>
+			</footer>
 		</div>
 	);
 };

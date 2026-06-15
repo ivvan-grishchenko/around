@@ -818,15 +818,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -1059,15 +1059,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -1295,15 +1295,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -1636,15 +1636,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -1872,15 +1872,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -2108,15 +2108,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -2344,15 +2344,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -2580,15 +2580,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -2816,15 +2816,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -3369,15 +3369,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -3626,15 +3626,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]
@@ -3883,15 +3883,15 @@
                     "position": 0
                   },
                   {
-                    "color": "$primary",
+                    "color": "$color-2",
                     "position": 0.3
                   },
                   {
-                    "color": "$chart-1",
+                    "color": "$gradient-mid-2",
                     "position": 0.6
                   },
                   {
-                    "color": "$accent",
+                    "color": "$gradient-end",
                     "position": 1
                   }
                 ]

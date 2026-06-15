@@ -1,4 +1,3 @@
-import { GradientText } from '@components/ui/Typography';
 import { X } from 'lucide-react';
 
 interface VisitedEntryProps {
@@ -14,16 +13,16 @@ const VisitedEntry = ({ countryName, visitedAt, onRemove }: VisitedEntryProps) =
 	const formattedDate = `${visitedAt.getFullYear()}.${String(visitedAt.getMonth() + 1).padStart(DATE_STRING_LENGTH, ZERO_PAD)}`;
 
 	return (
-		<div className="group flex items-center justify-between rounded-lg border border-border/50 bg-card/50 px-4 py-3 transition-colors hover:bg-card">
-			<GradientText content={countryName.toUpperCase()} />
-			<div className="flex items-center gap-2">
-				<span className="text-sm text-muted-foreground">{formattedDate}</span>
+		<div className="flex items-center justify-between rounded-lg bg-card px-3 py-3">
+			<span className="text-sm font-semibold text-foreground">{countryName.toUpperCase()}</span>
+			<div className="flex items-center gap-3">
+				<span className="text-xs text-muted-foreground">{formattedDate}</span>
 				{onRemove && (
 					<button
-						className="ml-2 rounded p-1 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
+						className="rounded p-0.5 text-muted-foreground hover:text-destructive"
 						onClick={onRemove}
 						type="button">
-						<X className="h-3 w-3" />
+						<X className="h-3.5 w-3.5" />
 					</button>
 				)}
 			</div>

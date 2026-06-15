@@ -21,7 +21,7 @@ const Progress = ({
 		{...props}>
 		<ProgressPrimitive.Indicator
 			data-slot="progress-indicator"
-			className="size-full flex-1 bg-linear-to-r from-pink-500 via-purple-400 to-orange-600 transition-all"
+			className="size-full flex-1 bg-linear-to-r from-blue-500 via-pink-500 to-orange-500 transition-all"
 			style={getStyle(value)}
 		/>
 	</ProgressPrimitive.Root>
